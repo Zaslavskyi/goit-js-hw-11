@@ -20,7 +20,7 @@ export class searchQuery {
                 min_width: searchQuery.min_width,
                 image_type: searchQuery.image_type,
                 per_page: searchQuery.per_page,
-            };
+            }
         };
 
         const response = await axios.get(`${API_URL}`, config);
