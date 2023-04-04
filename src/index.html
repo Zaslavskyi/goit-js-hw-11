@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page title</title>
-    <link rel="stylesheet" href="./sass/index.scss" />
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <div class="search-container">
-      <form class="search-form js-search-form" id="search-form">
+    <div class="container">
+      <form class="search-form" id="search-form">
         <input 
         type="text"
         name="searchQuery"
@@ -17,11 +17,8 @@
         placeholder="Search images...">
         <button type="submit">Search</button>
       </form>
-    </div>
-    <div class="gallery-container">
-      <div class="gallery js-gallery">
-      </div>
-      <button type="button" class="js-load-more"></button>
+    <div class="gallery"></div>
+      <button type="button" class="load-button hidden">Load more</button>
     </div>
     <script type="module" src="./index.js"></script>
   </body>
