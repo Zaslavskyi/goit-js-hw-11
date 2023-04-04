@@ -37,7 +37,7 @@ async function formSubmit(e) {
     try {
         loadButton.classList.remove('hidden');
         const response = await fetchImages(formValue, currentPage);
-        makeGallery(response);
+        makeGalleryUI(response);
     } catch (error) {
         Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.');
     }
@@ -47,7 +47,7 @@ async function loadMoreClick() {
     currentPage += 1;
     try {
         const response = await fetchImages(formValue, currentPage);
-        makeGallery(response);
+        makeGalleryUI(response);
         smothScroll();
     } catch (error) {
         hideLoadMoreBtn();
@@ -55,7 +55,7 @@ async function loadMoreClick() {
     }
 }
 
-function makeGallery(photos) {
+function makeGalleryUI(photos) {
     if (!photos) {
         hideLoadMoreBtn();
         return;
@@ -71,7 +71,7 @@ function makeGallery(photos) {
         return;
     }
 
-    const markup = makeGalleryItem(photos);
+    const markup = makeGallery(photos);
     galleryElement.insertAdjacentHTML('beforeend', markup);
 
     Notiflix.Notify.success(`
@@ -84,26 +84,27 @@ function makeGallery(array) {
     return array.map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads,}) => {
         return `
         <div class="photo-card">
-            <img src="" alt="" loading="lazy" />
+        <a class="gallery__link" href="${largeImageURL}">
+            <img src="${webformatURL}" alt="${tags}" loading="lazy" /></a>
                 <div class="info">
                     <p class="info-item">
-                        <b>Likes</b>
+                        <b>Likes ${likes} </b>
                     </p>
                     <p class="info-item">
-                        <b>Views</b>
+                        <b>Views ${views} </b>
                     </p>
                     <p class="info-item">
-                        <b>Comments</b>
+                        <b>Comments ${comments} </b>
                     </p>
                     <p class="info-item">
-                        <b>Downloads</b>
+                        <b>Downloads ${downloads} </b>
                     </p>
                 </div>
         </div>
         `;
     })
     .join('');
-};
+}
 
 function smothScroll() {
     const {height: cardHeight} = document.querySelector('.gallery').firstElementChild.getBoundingClientRect();
@@ -121,3 +122,5 @@ function  clearMarkup() {
 function hideLoadMoreBtn() {
     loadButton.classList.add('hidden');
 };
+
+
